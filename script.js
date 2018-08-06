@@ -38,33 +38,62 @@ Function Constructors
 // mark.calculateAge();
 // console.log(john.lastName, jane.lastName, mark.lastName);
 
+
+
 /*
 
 The Prototype Chain in the Console
 
 */
 
-var Person = function (name, yearOfBirth, job) {
-      this.name = name;
-      this.yearOfBirth = yearOfBirth;
-      this.job = job;
-}
-
-var john = new Person('John', 1990, 'teacher');
-console.log(john);
+// var Person = function (name, yearOfBirth, job) {
+//       this.name = name;
+//       this.yearOfBirth = yearOfBirth;
+//       this.job = job;
+// }
+//
+// var john = new Person('John', 1990, 'teacher');
+// console.log(john);
 
 // Console will include all of the properties that we assigned to it. We also have the _proto_, which includes the method that we added.
-console.log(Person.prototype);
+// console.log(Person.prototype);
 // Built in methods are included in _proto_:Object. Constructor is the prototype that was used to create a new object.
 // Has own property, asks if an object has a property or not.
-console.log(john.hasOwnProperty('job'));
+// console.log(john.hasOwnProperty('job'));
 // Will return true
-console.log(john.hasOwnProperty('lastName'));
+// console.log(john.hasOwnProperty('lastName'));
 // Will return false, because it's a property on the object Constructor
-console.log(john instanceof Person);
+// console.log(john instanceof Person);
 // Will return true
 
 // Everything IS truly an object
-var x = [2,4,6];
-console.info(x);
-console.log(x.length);
+// var x = [2,4,6];
+// console.info(x);
+// console.log(x.length);
+
+
+
+/*
+
+Creating Objects: Object.create
+
+*/
+
+// Create object based on a prototype object
+var personProto = {
+      calculateAge: function () {
+            console.log(2018 - this.yearOfBirth);
+      }
+}
+
+var john = Object.create(personProto);
+// Not ideal way to add info
+// john.name = 'John';
+// john.yearOfBirth = 1990;
+// john.job = 'teacher';
+
+var jane = Object.create(personProto, {
+      name: {value: 'Jane'},
+      yearOfBirth: {value: 1969},
+      job: {value: 'designer'}
+});
