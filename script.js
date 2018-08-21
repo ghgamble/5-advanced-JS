@@ -80,20 +80,69 @@ Creating Objects: Object.create
 */
 
 // Create object based on a prototype object
-var personProto = {
-      calculateAge: function () {
-            console.log(2018 - this.yearOfBirth);
-      }
-}
-
-var john = Object.create(personProto);
+// var personProto = {
+//       calculateAge: function () {
+//             console.log(2018 - this.yearOfBirth);
+//       }
+// }
+//
+// var john = Object.create(personProto);
 // Not ideal way to add info
 // john.name = 'John';
 // john.yearOfBirth = 1990;
 // john.job = 'teacher';
 
-var jane = Object.create(personProto, {
-      name: {value: 'Jane'},
-      yearOfBirth: {value: 1969},
-      job: {value: 'designer'}
-});
+// var jane = Object.create(personProto, {
+//       name: {value: 'Jane'},
+//       yearOfBirth: {value: 1969},
+//       job: {value: 'designer'}
+// });
+
+
+
+/*
+
+Primitives vs Objects
+
+*/
+
+// Primitives hold data within variables, variables associated with objects do not actually contain the object, but instead contain a reference to the place in memory where the object is stored.
+
+// Primitives
+var a = 23;
+var b = a;
+
+a = 46;
+
+console.log(a);
+console.log(b);
+
+// Objects
+var obj1 = {
+      name: 'John',
+      age: 26
+};
+var obj2 = obj1;
+obj1.age = 30;
+console.log(obj1.age);
+console.log(obj2.age);
+// obj2 is simply a new reference which points to exact same object in memory
+
+// Functions
+var age = 27;
+var obj = {
+      name: 'Jonas',
+      city: 'Lisbon'
+};
+
+function change(a, b) {
+      a = 30;
+      b.city = 'San Francisco';
+}
+
+change (age, obj);
+
+console.log(age);
+console.log(obj.city);
+
+// Primitive has remained unchanged, function will never affect the exterior. We don't pass an object into a function, just the reference that points to the object, so it is then reflected outside the function.
