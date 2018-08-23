@@ -109,41 +109,41 @@ Primitives vs Objects
 // Primitives hold data within variables, variables associated with objects do not actually contain the object, but instead contain a reference to the place in memory where the object is stored.
 
 // Primitives
-var a = 23;
-var b = a;
-
-a = 46;
-
-console.log(a);
-console.log(b);
+// var a = 23;
+// var b = a;
+//
+// a = 46;
+//
+// console.log(a);
+// console.log(b);
 
 // Objects
-var obj1 = {
-      name: 'John',
-      age: 26
-};
-var obj2 = obj1;
-obj1.age = 30;
-console.log(obj1.age);
-console.log(obj2.age);
+// var obj1 = {
+//       name: 'John',
+//       age: 26
+// };
+// var obj2 = obj1;
+// obj1.age = 30;
+// console.log(obj1.age);
+// console.log(obj2.age);
 // obj2 is simply a new reference which points to exact same object in memory
 
 // Functions
-var age = 27;
-var obj = {
-      name: 'Jonas',
-      city: 'Lisbon'
-};
-
-function change(a, b) {
-      a = 30;
-      b.city = 'San Francisco';
-}
-
-change (age, obj);
-
-console.log(age);
-console.log(obj.city);
+// var age = 27;
+// var obj = {
+//       name: 'Jonas',
+//       city: 'Lisbon'
+// };
+//
+// function change(a, b) {
+//       a = 30;
+//       b.city = 'San Francisco';
+// }
+//
+// change (age, obj);
+//
+// console.log(age);
+// console.log(obj.city);
 
 // Primitive has remained unchanged, function will never affect the exterior. We don't pass an object into a function, just the reference that points to the object, so it is then reflected outside the function.
 
@@ -161,35 +161,67 @@ First Class Functions: Passing Functions as Arguments
 // We can pass a function as an argument to another function
 // We can return a function from a function
 
-var years = [1990, 1965, 1937, 2005, 1998];
-
-function arrayCalc (arr, fn) {
-      var arrRes = [];
-      for (var i = 0; i < arr.length; i++) {
-            arrRes.push(fn(arr[i]));
-      }
-      return arrRes;
-}
+// var years = [1990, 1965, 1937, 2005, 1998];
+//
+// function arrayCalc (arr, fn) {
+//       var arrRes = [];
+//       for (var i = 0; i < arr.length; i++) {
+//             arrRes.push(fn(arr[i]));
+//       }
+//       return arrRes;
+// }
 
 // Callback function = fn
-function calculateAge (el) {
-      return 2016 - el;
-}
-function isFullAge (el) {
-      return el >= 18;
-}
-function maxHeartRate (el) {
-      if (el >= 18 && el <= 81) {
-            return Math.round(206.9 - (0.67 * el));
+// function calculateAge (el) {
+//       return 2016 - el;
+// }
+// function isFullAge (el) {
+//       return el >= 18;
+// }
+// function maxHeartRate (el) {
+//       if (el >= 18 && el <= 81) {
+//             return Math.round(206.9 - (0.67 * el));
+//       } else {
+//             return -1;
+//       }
+// }
+
+// var ages = arrayCalc(years, calculateAge);
+// var fullAges = arrayCalc(ages, isFullAge);
+// var rates = arrayCalc(ages, maxHeartRate);
+//
+// console.log(ages);
+// console.log(fullAges);
+// console.log(rates);
+
+
+
+/*
+
+First Class Functions: Functions Returning Functions
+
+*/
+
+function interviewQuestion (job) {
+      if (job === 'designer') {
+            return function (name) {
+                  console.log(name + ', can you please explain what UX design is?');
+            }
+      } else if (job === 'teacher') {
+            return function (name) {
+                  console.log('What subject do you teach, ' + name + '?');
+            }
       } else {
-            return -1;
+            return function (name) {
+                  console.log('Hello ' + name + ', what do you do?');
+            }
       }
 }
 
-var ages = arrayCalc(years, calculateAge);
-var fullAges = arrayCalc(ages, isFullAge);
-var rates = arrayCalc(ages, maxHeartRate);
+var teacherQuestion = interviewQuestion('teacher');
+var designerQuestion = interviewQuestion('designer');
 
-console.log(ages);
-console.log(fullAges);
-console.log(rates);
+teacherQuestion('John');
+designerQuestion('Mark');
+
+interviewQuestion('teacher')('Jane');
