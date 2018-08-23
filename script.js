@@ -146,3 +146,50 @@ console.log(age);
 console.log(obj.city);
 
 // Primitive has remained unchanged, function will never affect the exterior. We don't pass an object into a function, just the reference that points to the object, so it is then reflected outside the function.
+
+
+
+/*
+
+First Class Functions: Passing Functions as Arguments
+
+*/
+
+// A function is an instance of the Object type
+// A function behaves like any other object
+// We can store functions in a variable
+// We can pass a function as an argument to another function
+// We can return a function from a function
+
+var years = [1990, 1965, 1937, 2005, 1998];
+
+function arrayCalc (arr, fn) {
+      var arrRes = [];
+      for (var i = 0; i < arr.length; i++) {
+            arrRes.push(fn(arr[i]));
+      }
+      return arrRes;
+}
+
+// Callback function = fn
+function calculateAge (el) {
+      return 2016 - el;
+}
+function isFullAge (el) {
+      return el >= 18;
+}
+function maxHeartRate (el) {
+      if (el >= 18 && el <= 81) {
+            return Math.round(206.9 - (0.67 * el));
+      } else {
+            return -1;
+      }
+}
+
+var ages = arrayCalc(years, calculateAge);
+var fullAges = arrayCalc(ages, isFullAge);
+var rates = arrayCalc(ages, maxHeartRate);
+
+console.log(ages);
+console.log(fullAges);
+console.log(rates);
