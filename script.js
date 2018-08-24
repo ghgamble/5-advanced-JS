@@ -240,14 +240,60 @@ Immediately Invoked Function Expressions (IIFE)
 // }
 // game ();
 
-(function (){
-      var score = Math.random () * 10;
-      console.log (score >=5);
-}) ();
+// (function (){
+//       var score = Math.random () * 10;
+//       console.log (score >=5);
+// }) ();
 
 // console.log(score);
 
-(function (goodLuck){
-      var score = Math.random () * 10;
-      console.log (score >= 5 - goodLuck);
-}) (5);
+// (function (goodLuck){
+//       var score = Math.random () * 10;
+//       console.log (score >= 5 - goodLuck);
+// }) (5);
+
+
+
+/*
+
+Closures
+
+*/
+
+function retirement (retirementAge) {
+      var a = ' years left until retirement.';
+      return function (yearOfBirth) {
+            var age = 2018 - yearOfBirth;
+            console.log((retirementAge - age) + a);
+      }
+}
+
+var retirementUS = retirement(66);
+retirementUS(1990);
+retirement(66)(1990);
+
+// An inner function always has access to the variables and parameters of its outer function, even after the outer function has returned.
+// Global variables live as long as your application (your window / your web page) lives. Local variables have short lives. They are created when the function is invoked, and deleted when the function is finished.
+// This is called a JavaScript closure. It makes it possible for a function to have "private" variables. The counter is protected by the scope of the anonymous function, and can only be changed using the retirement function.
+
+// Reusable functions, can be used many times with different contexts
+
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
+
+retirementGermany(1990);
+retirementIceland(1990);
+
+function interviewQuestion (job) {
+      return function (name) {
+            if (job === 'designer') {
+                  console.log(name + ', can you please explain what UX design is?');
+            } else if (job === 'teacher') {
+                  console.log('What subject do you teach, ' + name + '?');
+            } else {
+                  console.log('Hello ' + name + ', what do you do?');
+            }
+      }
+}
+
+interviewQuestion ('teacher') ('John');
